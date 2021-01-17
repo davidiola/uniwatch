@@ -2,5 +2,6 @@
 pragma solidity ^0.6.6;
 
 interface IUniswapFacade {
-    function ethRookPairInfo() external returns (uint pairTotalSupply);
+    function pairTotalSupplyInfo() external view returns (uint pairTotalSupply);
+    function getAmountsOut() external view returns (uint[] memory amt);
 }

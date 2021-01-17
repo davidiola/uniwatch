@@ -27,7 +27,10 @@ async function main() {
   await uni.deployed();
   console.log("Uni deployed to:", uni.address);
 
-  await uni.ethRookPairInfo();
+  supply = await uni.pairTotalSupplyInfo();
+  console.log(supply);
+  amtOut = await uni.getAmountsOut();
+  console.log(amtOut);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

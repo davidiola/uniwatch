@@ -5,11 +5,11 @@ require("@nomiclabs/hardhat-etherscan");
  * @type import('hardhat/config').HardhatUserConfig
  */
 
-const INFURA_PROJECT_ID = "replace";
+const INFURA_PROJECT_ID = "";
 
-const RINKEBY_PRIVATE_KEY = "replace";
+const PRIVATE_KEY = "";
 
-const ETHERSCAN_API_KEY = "replace";
+const ETHERSCAN_API_KEY = "";
 
 module.exports = {
   solidity: "0.6.6",
@@ -19,11 +19,15 @@ module.exports = {
   networks: {
     rinkeby: {
       url: `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`,
-      accounts: [`0x${RINKEBY_PRIVATE_KEY}`]
+      accounts: [`0x${PRIVATE_KEY}`]
     },
     mainnet: {
       url: `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`,
-      accounts: [`0x${RINKEBY_PRIVATE_KEY}`]
+      accounts: [`0x${PRIVATE_KEY}`]
+    },
+    kovan: {
+      url: `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`,
+      accounts: [`0x${PRIVATE_KEY}`]
     }
   }
 };

@@ -15,7 +15,8 @@
     "chai": "^4.2.0",
     "ethereum-waffle": "^3.2.1",
     "ethers": "^5.0.26",
-    "hardhat": "^2.0.8"
+    "hardhat": "^2.0.8",
+    "hardhat-dependency-compiler": "^1.0.2"
   },
   "dependencies": {
     "@uniswap/v2-core": "^1.0.1",

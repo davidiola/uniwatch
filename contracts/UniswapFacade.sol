@@ -11,18 +11,24 @@ import "hardhat/console.sol";
 contract UniswapFacade is IUniswapFacade {
     address internal constant UNISWAP_ROUTER_ADDRESS = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
     address internal constant UNISWAP_FACTORY_ADDRESS = 0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f;
-    address internal constant ROOK_ADDRESS = 0xfA5047c9c78B8877af97BDcb85Db743fD7313d4a;
+    address private multiDaiKovan = 0x4F96Fe3b7A6Cf9725f59d353F723c1bDb64CA6Aa;
+
     constructor() public {
         console.log("Deploying a UniswapFacade");
     }
-    function ethRookPairInfo() override external returns (uint pairTotalSupply) {
+    function pairTotalSupplyInfo() override external view returns (uint pairTotalSupply) {
         IUniswapV2Router02 uniswapRouter = IUniswapV2Router02(UNISWAP_ROUTER_ADDRESS);
         address wethToken = uniswapRouter.WETH();
-        if (IUniswapV2Factory(UNISWAP_FACTORY_ADDRESS).getPair(wethToken, ROOK_ADDRESS) == address(0)) {
-            IUniswapV2Factory(UNISWAP_FACTORY_ADDRESS).createPair(wethToken, ROOK_ADDRESS);
-        }
-        IUniswapV2Pair pair = IUniswapV2Pair(UniswapV2Library.pairFor(UNISWAP_FACTORY_ADDRESS, wethToken, ROOK_ADDRESS));
+        IUniswapV2Pair pair = IUniswapV2Pair(UniswapV2Library.pairFor(UNISWAP_FACTORY_ADDRESS, wethToken, multiDaiKovan));
         pairTotalSupply = pair.totalSupply();
         console.log("TotalSupply is: '%d'", pairTotalSupply);
+    }
+
+    function getAmountsOut() override external view returns (uint[] memory amt) {
+        IUniswapV2Router02 uniswapRouter = IUniswapV2Router02(UNISWAP_ROUTER_ADDRESS);
+        address[] memory path = new address[](2);
+        path[0] = uniswapRouter.WETH();
+        path[1] = multiDaiKovan;
+        amt = uniswapRouter.getAmountsOut(1000000000000000000, path);
     }
 }
